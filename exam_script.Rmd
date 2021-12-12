@@ -1,0 +1,117 @@
+---
+title: "maternal_mortality"
+author: "maria christensen"
+date: "created: 12/3/2021, updated: `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+libraries 
+```{r}
+library(tidyverse)
+```
+
+## Bringing data to the script
+collecting the raw data on maternal mortality
+```{r}
+MMR <- read.csv("raw_data/maternal-mortality_raw_data_csv.csv",skip=1,sep = ";")
+?read.csv
+```
+
+removing the previous data, that was not useful
+```{r}
+remove(maternal_mortality_csv)
+remove(MMR_sel_contries)
+remove(MMR_selected_contries)
+```
+
+collecting the raw data on births with skilled attendance 
+```{r}
+skilled_att <- read.csv("raw_data/births-attended-by-health-staff-sdgs_raw_data.csv", sep = ",")
+```
+
+## Tidying the spreadsheets
+renaming columns to remove spaces and long and unintelligible names 
+```{r}
+MMR <- MMR %>% 
+  rename(maternal_mortality_rate='Maternal.Mortality.Ratio..Gapminder..2010..and.World.Bank..2015..')
+
+MMR <- MMR %>% 
+  rename(country=Entity)
+
+skilled_att <- skilled_att %>% 
+  rename(Attended_births='Births.attended.by.skilled.health.staff....of.total.')
+
+skilled_att <- skilled_att %>% 
+  rename(Country=Entity)
+```
+
+## Collecting the 7 chosen countries
+I am selecting the seven relevant countries in both maternal mortality rate and in skilled attendance at birth and giving them easily understandable names
+```{r}
+MMR_sel_countries <- MMR %>% 
+  filter(country%in%c("Afghanistan","Chad","Italy","Nigeria","China", "Ethiopia", "India"))
+```
+
+```{r}
+skilled_att_sel_countries <- skilled_att %>% 
+  filter(Country%in%c("Afghanistan","Chad","Italy","Nigeria","China","Ethiopia","India"))
+```
+
+
+## Development in maternal mortality
+```{r}
+ggplot(data=MMR_sel_countries) +  
+  geom_line(mapping = aes(x=Year, 
+                          y=maternal_mortality_rate, 
+                          color=country)) + 
+  labs(x="Year", 
+       y="Maternal mortality ratio", 
+       title = "Maternal Mortality")
+```
+
+## Development in births with skilled attendance
+```{r}
+ggplot(data=skilled_att_sel_countries) +  
+  geom_line(mapping = aes(x=Year, 
+                          y=Attended_births, 
+                          color=Country)) + 
+  labs(x="Year", 
+       y="Percent of births with skilled attendance", 
+       title = "Skilled attended births")
+```
+
+## Afghanistan as an example of development
+Looking at just one country: Afghanistan to see if there is a clear correlation
+Afghanistan is one of the countries, where it is toughest to be pregnant, and therefore relevant to see the development here.
+```{r}
+MMR_afghanistan <- MMR %>% 
+  filter(country=="Afghanistan")
+```
+
+```{r}
+ggplot(data=MMR_afghanistan) +  
+  geom_line(mapping = aes(x=Year, 
+                          y=maternal_mortality_rate, 
+                          color=country)) + 
+  labs(x="Year", 
+       y="Maternal mortality ratio", 
+       title = "Maternal Mortality in Afghanistan")
+```
+```{r}
+skilled_att_afghanistan <- skilled_att %>% 
+  filter(Country=="Afghanistan")
+```
+
+```{r}
+ggplot(data=skilled_att_afghanistan) +  
+  geom_line(mapping = aes(x=Year, 
+                          y=Attended_births, 
+                          color=Country)) + 
+  labs(x="Year", 
+       y="Percent of births with skilled attendance", 
+       title = "Skilled attended births in Afghanistan")
+```
+
