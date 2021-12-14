@@ -1,0 +1,17 @@
+﻿Abbreviation;Descriptions
+MMR;data set in maternal mortality, including all countries. Raw data available in Github-repository (link: https://github.com/Digital-Methods-HASS/AU683293_christensen_maria)
+country;the conserning country
+Code;code of country - not specificly used here
+Year;year of the data
+maternal_mortality_rate;(former name: Maternal_Mortality_Ratio (Gapminder (2010) and World Bank (2015))), Maternal Mortality Ratio defined as WHO: The maternal mortality ratio is defined as the number of maternal deaths during the first 42 days per 100,000 live births in the same period.  
+;
+skilled_att;data set on percentage of births with skilled attendance, including all countries. Raw data available in GitHub-repository (link: https://github.com/Digital-Methods-HASS/AU683293_christensen_maria)
+Country;the conserning country
+Code;code of country - not specificly used here
+Year;year of the data
+;
+MMR_sel_countries;"data on maternal mortality in the seven countries; Afghanistan, Chad, China, Ethiopia, India, Italy, Nigeria. Collected from the original data set (MMR)"
+skilled_att_sel_countries;"data on percentage of births with skilled attendance in the seven countries; Afghanistan, Chad, China, Ethiopia, India, Italy, Nigeria. Collected from the original data set (skilled_att)"
+;
+MMR_afghanistan;data on maternal mortality in Afghanistan. Collected from the original data set (MMR)
+skilled_att_afghanistan;data on percentage of births with skilled attendance in Afghanistan. Collected from the original data set (skilled_att)
